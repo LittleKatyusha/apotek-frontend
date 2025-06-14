@@ -24,6 +24,10 @@ const CheckoutPage = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault();
+    if (cartItems.length === 0) {
+      alert("Keranjang Anda kosong!");
+      return;
+    }
     setIsProcessing(true);
 
     const orderData = {
@@ -34,11 +38,11 @@ const CheckoutPage = () => {
     try {
       await apiClient.post('/checkout', orderData);
       alert('Pesanan berhasil dibuat!');
-      clearCart(); // Kosongkan keranjang setelah berhasil
-      navigate('/riwayat-pesanan'); // Arahkan ke halaman riwayat pesanan
+      clearCart();
+      navigate('/riwayat-pesanan');
     } catch (error) {
       console.error('Gagal membuat pesanan:', error);
-      alert('Terjadi kesalahan saat memproses pesanan Anda.');
+      alert('Terjadi kesalahan saat memproses pesanan Anda. Pastikan semua kolom terisi.');
     } finally {
       setIsProcessing(false);
     }
@@ -63,17 +67,19 @@ const CheckoutPage = () => {
               <label htmlFor="telepon">Nomor Telepon</label>
               <input type="tel" id="telepon" name="telepon" value={formData.telepon} onChange={handleInputChange} required />
             </div>
-            <button type="submit" className="btn-submit-order" disabled={isProcessing}>
+            <button type="submit" className="btn-submit-order" disabled={isProcessing || cartItems.length === 0}>
               {isProcessing ? 'Memproses...' : 'Buat Pesanan'}
             </button>
           </form>
         </div>
+
+        {/* BAGIAN BARU: RINGKASAN PESANAN */}
         <div className="order-summary">
           <h2>Ringkasan Pesanan</h2>
           {cartItems.map(item => (
             <div key={item.id} className="summary-item">
-              <span>{item.nama_obat} x {item.quantity}</span>
-              <span>Rp {new Intl.NumberFormat('id-ID').format(item.harga * item.quantity)}</span>
+              <span className="summary-item-name">{item.nama_obat} (x{item.quantity})</span>
+              <span className="summary-item-price">Rp {new Intl.NumberFormat('id-ID').format(item.harga * item.quantity)}</span>
             </div>
           ))}
           <hr/>
