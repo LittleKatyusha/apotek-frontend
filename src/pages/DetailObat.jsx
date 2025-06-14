@@ -1,29 +1,37 @@
-// src/pages/DetailObat.jsx
-import React, { useContext } from 'react'; // <-- Import useContext
+import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getObatById } from '../mockData';
-import { CartContext } from '../context/CartContext'; // <-- Import CartContext
+import { getObatById } from '../mockData.js';
+import { CartContext } from '../context/CartContext.jsx';
 
 function DetailObat() {
   const { id } = useParams();
   const obat = getObatById(id);
-  const { addToCart } = useContext(CartContext); // <-- Ambil fungsi addToCart dari context
+  const { addToCart } = useContext(CartContext);
 
   if (!obat) {
-    return <div className="container"><h1>Obat Tidak Ditemukan</h1></div>;
+    return (
+      <div className="container">
+        <h1>404 - Obat Tidak Ditemukan</h1>
+        <Link to="/">Kembali ke beranda</Link>
+      </div>
+    );
   }
 
   return (
     <div className="container">
-      {/* ... kode lainnya ... */}
-      <div className="detail-info">
-        {/* ... kode lainnya ... */}
-
-        {/* UBAH TOMBOL INI */}
-        <button className="btn-beli" onClick={() => addToCart(obat)}>
-          Tambah ke Keranjang
-        </button>
-
+      <div className="detail-content">
+        <img src={obat.gambar_url} alt={obat.nama_obat} />
+        <div className="detail-info">
+          <h1>{obat.nama_obat}</h1>
+          <p className="obat-kategori">{obat.kategori}</p>
+          <hr/>
+          <p>{obat.deskripsi}</p>
+          <p><strong>Stok Tersisa:</strong> {obat.stok}</p>
+          <p className="harga">Rp {new Intl.NumberFormat('id-ID').format(obat.harga)}</p>
+          <button className="btn-beli" onClick={() => addToCart(obat)}>
+            Tambah ke Keranjang
+          </button>
+        </div>
       </div>
     </div>
   );

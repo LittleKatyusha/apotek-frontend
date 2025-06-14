@@ -1,3 +1,4 @@
+/* src/App.css */
 :root {
   --primary-blue: #0D6EFD;
   --success-green: #198754;
@@ -69,6 +70,61 @@ main { min-height: 70vh; }
   font-size: 0.8rem;
   font-weight: 700;
   margin-left: 8px;
+}
+
+/* === HEADER ACTIONS (LOGIN, REGISTER, CART) === */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Jarak antar tombol */
+}
+
+.btn-login, .btn-register {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+/* Tombol Login (Ghost Button) */
+.btn-login {
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.btn-login:hover {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+/* Tombol Daftar (Solid Button) */
+.btn-register {
+  background-color: var(--primary-blue);
+  color: white;
+}
+
+.btn-register:hover {
+  background-color: #0B5ED7;
+}
+
+/* Sedikit penyesuaian pada tombol keranjang agar konsisten */
+.cart-button {
+  background-color: transparent;
+  color: var(--dark-text);
+  font-size: 1.5rem; /* Perbesar ikon keranjang */
+  padding: 0;
+}
+.cart-button:hover {
+  background-color: transparent;
+  color: var(--primary-blue);
+}
+.cart-button span {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-left: 5px;
+  color: var(--dark-text);
+  background-color: transparent;
 }
 
 /* === HERO SECTION === */
@@ -153,14 +209,15 @@ main { min-height: 70vh; }
 
 /* === PRODUCT SECTION === */
 .product-section { 
-  padding-top: 50px; 
+  padding: 50px 0;
+  background-color: #FFFFFF;
 }
 .product-section h2 { font-size: 1.8rem; font-weight: 600; margin-bottom: 30px; }
 .obat-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
 .obat-card {
   background-color: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -200,6 +257,11 @@ main { min-height: 70vh; }
 .btn-hapus { background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
 .cart-total { text-align: right; margin-top: 20px; }
 .btn-checkout { background-color: var(--success-green); color: white; font-size: 1.2em; padding: 10px 20px; border: none; border-radius: 5px; }
+.detail-content { display: flex; gap: 30px; background-color: white; padding: 30px; border-radius: 8px; margin-top: 20px; }
+.detail-content img { max-width: 400px; border-radius: 8px; border: 1px solid var(--border-color); }
+.detail-info .harga { font-size: 2rem; font-weight: bold; color: var(--primary-blue); }
+.btn-beli { background-color: var(--primary-blue); color: white; border: none; padding: 15px 30px; font-size: 1.1em; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+.btn-beli:hover { background-color: #0B5ED7; }
 
 /* EMPTY CART PAGE */
 .empty-cart {
@@ -243,7 +305,6 @@ main { min-height: 70vh; }
   font-size: 0.9rem;
 }
 .app-footer p { margin: 5px 0; }
-
 
 /* ========================================= */
 /* === ATURAN DESAIN RESPONSif (MEDIA QUERY) === */
@@ -290,6 +351,9 @@ main { min-height: 70vh; }
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
+  .detail-content {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 576px) {
@@ -315,4 +379,75 @@ main { min-height: 70vh; }
   .obat-list {
     grid-template-columns: 1fr;
   }
+}
+
+/* src/App.css - Tambahkan di akhir file */
+
+/* === AUTHENTICATION PAGE === */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.auth-form {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+.auth-form h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-weight: 600;
+  color: var(--dark-text);
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #fff;
+  background-color: var(--primary-blue);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-auth:hover {
+  background-color: #0B5ED7;
+}
+
+.auth-switch {
+  margin-top: 25px;
+  color: #6c757d;
 }

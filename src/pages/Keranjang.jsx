@@ -1,7 +1,7 @@
-// src/pages/Keranjang.jsx
 import React, { useContext } from 'react';
-import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
+import { CartContext } from '../context/CartContext.jsx';
 
 function Keranjang() {
   const { cartItems, removeFromCart } = useContext(CartContext);
@@ -12,7 +12,14 @@ function Keranjang() {
     <div className="container">
       <h1>Keranjang Belanja Anda</h1>
       {cartItems.length === 0 ? (
-        <p>Keranjang Anda masih kosong. <Link to="/">Mulai belanja</Link></p>
+        <div className="empty-cart">
+          <FaShoppingCart className="empty-cart-icon" />
+          <h2>Wah, keranjang Anda kosong!</h2>
+          <p>Sepertinya Anda belum menambahkan produk apapun.</p>
+          <Link to="/" className="btn-belanja">
+            Cari Produk Sekarang
+          </Link>
+        </div>
       ) : (
         <div>
           {cartItems.map(item => (

@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaCheck, FaShieldAlt, FaTruck, FaStethoscope } from 'react-icons/fa';
 
-import { mockObatData } from '../mockData';
-import { CartContext } from '../context/CartContext';
+import { mockObatData } from '../mockData.js';
+import { CartContext } from '../context/CartContext.jsx';
 
 function DaftarObat() {
   const obats = mockObatData;
@@ -46,34 +46,36 @@ function DaftarObat() {
         </div>
       </section>
 
-      <div className="container product-section">
-        <h2>Produk Terlaris</h2>
-        <div className="obat-list">
-          {obats.map(obat => (
-            <div key={obat.id} className="obat-card">
-              <Link to={`/obat/${obat.id}`}>
-                <img src={obat.gambar_url} alt={obat.nama_obat} />
-                <div className="obat-info">
-                  <span className="obat-kategori">{obat.kategori}</span>
-                  <h3>{obat.nama_obat}</h3>
-                  <p className="obat-harga">Rp {new Intl.NumberFormat('id-ID').format(obat.harga)}</p>
-                </div>
-              </Link>
-              <button
-                className={`add-to-cart-btn ${justAdded === obat.id ? 'added' : ''}`}
-                onClick={() => handleAddToCart(obat)}
-                disabled={justAdded === obat.id}
-              >
-                {justAdded === obat.id ? (
-                  <><FaCheck style={{ marginRight: '5px' }} /> Ditambahkan</>
-                ) : (
-                  ' + Keranjang'
-                )}
-              </button>
-            </div>
-          ))}
+      <section className="product-section">
+        <div className="container">
+          <h2>Produk Terlaris</h2>
+          <div className="obat-list">
+            {obats.map(obat => (
+              <div key={obat.id} className="obat-card">
+                <Link to={`/obat/${obat.id}`}>
+                  <img src={obat.gambar_url} alt={obat.nama_obat} />
+                  <div className="obat-info">
+                    <span className="obat-kategori">{obat.kategori}</span>
+                    <h3>{obat.nama_obat}</h3>
+                    <p className="obat-harga">Rp {new Intl.NumberFormat('id-ID').format(obat.harga)}</p>
+                  </div>
+                </Link>
+                <button
+                  className={`add-to-cart-btn ${justAdded === obat.id ? 'added' : ''}`}
+                  onClick={() => handleAddToCart(obat)}
+                  disabled={justAdded === obat.id}
+                >
+                  {justAdded === obat.id ? (
+                    <><FaCheck style={{ marginRight: '5px' }} /> Ditambahkan</>
+                  ) : (
+                    ' + Keranjang'
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
