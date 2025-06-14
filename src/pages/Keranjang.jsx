@@ -1,3 +1,4 @@
+// src/pages/Keranjang.jsx
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart } from 'react-icons/fa';
@@ -5,7 +6,6 @@ import { CartContext } from '../context/CartContext.jsx';
 
 function Keranjang() {
   const { cartItems, removeFromCart } = useContext(CartContext);
-
   const totalHarga = cartItems.reduce((total, item) => total + item.harga * item.quantity, 0);
 
   return (
@@ -35,11 +35,14 @@ function Keranjang() {
           <hr />
           <div className="cart-total">
             <h2>Total: Rp {new Intl.NumberFormat('id-ID').format(totalHarga)}</h2>
-            <button className="btn-checkout">Lanjut ke Checkout</button>
+            <Link to="/checkout" className="btn-checkout">
+              Lanjut ke Checkout
+            </Link>
           </div>
         </div>
       )}
     </div>
   );
 }
+
 export default Keranjang;

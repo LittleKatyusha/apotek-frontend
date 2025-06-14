@@ -1,43 +1,50 @@
-// src/context/CartContext.jsx
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
-// 1. Membuat Context-nya
 export const CartContext = createContext();
 
-// 2. Membuat Provider (Penyedia Data)
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const storedItems = localStorage.getItem('cartItems');
+    return storedItems ? JSON.parse(storedItems) : [];
+  });
 
-  // Fungsi untuk menambah item ke keranjang
+  useEffect(() => {
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const addToCart = (item) => {
     setCartItems(prevItems => {
-      // Cek apakah item sudah ada di keranjang
       const isItemInCart = prevItems.find(cartItem => cartItem.id === item.id);
-
       if (isItemInCart) {
-        // Jika sudah ada, tambah quantity-nya
         return prevItems.map(cartItem =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
       } else {
-        // Jika belum ada, tambahkan item baru dengan quantity 1
         return [...prevItems, { ...item, quantity: 1 }];
       }
     });
-    alert(`${item.nama_obat} telah ditambahkan ke keranjang!`);
   };
 
-  // Fungsi untuk menghapus item dari keranjang
   const removeFromCart = (itemId) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== itemId));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
-  // 3. Menyediakan data dan fungsi ke seluruh aplikasi
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        setCartItems, // Ekspor setCartItems untuk checkout
+        addToCart,
+        removeFromCart,
+        clearCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
