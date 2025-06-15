@@ -23,6 +23,7 @@ import CheckoutPage from './pages/CheckoutPage.jsx';
 import RiwayatPesananPage from './pages/RiwayatPesananPage.jsx';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage.jsx';
 import AdminProdukPage from './pages/admin/AdminProdukPage.jsx';
+import AdminPesananPage from './pages/admin/AdminPesananPage.jsx';
 
 import './App.css';
 
@@ -41,6 +42,7 @@ function App() {
         >
           <Route path="dashboard" element={<AdminDashboardPage />} />
           <Route path="produk" element={<AdminProdukPage />} />
+          <Route path="pesanan" element={<AdminPesananPage />} />
           {/* Tambahkan rute admin lainnya di sini */}
         </Route>
 

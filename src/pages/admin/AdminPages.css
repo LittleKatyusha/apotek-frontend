@@ -77,6 +77,7 @@ td.action-buttons button {
 .btn-edit { background-color: #ffc107; color: #333; }
 .btn-delete { background-color: #dc3545; }
 
+/* Styling untuk form di dalam modal */
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -106,24 +107,108 @@ td.action-buttons button {
   border-radius: 8px;
   margin-top: 20px;
 }
-
-/* Styling untuk membuat modal bisa di-scroll */
-.modal-content {
-  max-height: 90vh; /* Batasi tinggi modal maksimal 90% dari tinggi layar */
-  display: flex;
-  flex-direction: column;
+/* Styling untuk Detail Pesanan di dalam Modal */
+.order-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
 }
 
-.modal-body {
-  overflow-y: auto; /* Tambahkan scroll vertikal jika kontennya lebih panjang */
-  padding-right: 15px; /* Beri sedikit ruang untuk scrollbar */
+.detail-section {
+    font-size: 0.95rem;
 }
 
-.image-preview {
-  max-width: 100px;
-  max-height: 100px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  display: block;
+.detail-label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: #555;
+    line-height: 1.6;
+}
+
+.order-detail-items {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+.order-detail-items h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.order-detail-items li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.order-detail-items li:last-child {
+    border-bottom: none;
+}
+
+.order-detail-items img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+.item-info span {
+    font-weight: 500;
+    display: block;
+}
+.item-info small {
+    display: block;
+    color: #6c757d;
+}
+
+.modal-footer-actions {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+/* Styling baru untuk tombol hapus di modal */
+.btn-delete-modal {
+    background-color: transparent;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-delete-modal:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* --- GAYA BARU UNTUK TOMBOL LIHAT DETAIL --- */
+.btn-detail {
+    /* Langsung beri background hijau dan teks putih */
+    background-color: var(--success-green); 
+    color: white; 
+    border: 1px solid var(--success-green);
+    padding: 6px 12px;
+    transition: all 0.2s ease;
+}
+
+.btn-detail:hover {
+    /* Beri efek sedikit lebih gelap saat di-hover */
+    background-color: #157347; 
+    border-color: #146c43;
 }
