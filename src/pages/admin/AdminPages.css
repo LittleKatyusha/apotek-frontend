@@ -212,3 +212,53 @@ td.action-buttons button {
     background-color: #157347; 
     border-color: #146c43;
 }
+
+/* Styling untuk Update Status di Modal */
+.status-update-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+.status-update-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.status-update-form {
+  display: flex;
+  gap: 10px;
+}
+.status-update-form select {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Styling untuk Kontrol Pagination */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.pagination-controls button {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-weight: 500;
+}
+

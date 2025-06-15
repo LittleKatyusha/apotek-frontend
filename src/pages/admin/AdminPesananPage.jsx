@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import apiClient from '../../api/axios.js';
 import Modal from '../../components/admin/Modal.jsx';
 import './AdminPages.css';
-// 1. Import ikon baru
 import { FaEye, FaTrash } from 'react-icons/fa';
 
 const AdminPesananPage = () => {
-  const [orders, setOrders] = useState([]);
+  const [ordersData, setOrdersData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [newStatus, setNewStatus] = useState('');
 
-  const fetchOrders = async () => {
+  const fetchOrders = async (page = 1) => {
     setError(null);
+    setLoading(true);
     try {
-      const response = await apiClient.get('/admin/pesanan');
-      setOrders(response.data);
+      const response = await apiClient.get(`/admin/pesanan?page=${page}`);
+      setOrdersData(response.data);
     } catch (err) {
       setError("Gagal memuat data pesanan.");
     } finally {
@@ -29,10 +30,17 @@ const AdminPesananPage = () => {
     fetchOrders();
   }, []);
 
+  const handlePageChange = (page) => {
+    if (page < 1 || !ordersData || page > ordersData.last_page) return;
+    fetchOrders(page);
+  };
+  
+  // --- MENGISI FUNGSI YANG KOSONG ---
   const handleViewDetail = async (orderId) => {
     try {
         const response = await apiClient.get(`/admin/pesanan/${orderId}`);
         setSelectedOrder(response.data);
+        setNewStatus(response.data.status); // Set status awal untuk dropdown
         setIsDetailModalOpen(true);
     } catch (error) {
         alert("Gagal memuat detail pesanan.");
@@ -52,9 +60,23 @@ const AdminPesananPage = () => {
         await apiClient.delete(`/admin/pesanan/${orderId}`);
         alert(`Pesanan #${orderId} berhasil dihapus.`);
         handleCloseDetailModal();
-        fetchOrders();
+        fetchOrders(ordersData.current_page); // Refresh daftar pesanan di halaman saat ini
     } catch (error) {
         alert("Gagal menghapus pesanan.");
+    }
+  };
+
+  const handleUpdateStatus = async () => {
+    if (!selectedOrder || !newStatus) return;
+    try {
+        await apiClient.put(`/admin/pesanan/${selectedOrder.id}/status`, {
+            status: newStatus,
+        });
+        alert('Status pesanan berhasil diperbarui!');
+        handleCloseDetailModal();
+        fetchOrders(ordersData.current_page); // Refresh daftar pesanan
+    } catch (error) {
+        alert('Gagal memperbarui status pesanan.');
     }
   };
 
@@ -80,10 +102,10 @@ const AdminPesananPage = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
+            {ordersData && ordersData.data.map(order => (
               <tr key={order.id}>
                 <td>#{order.id}</td>
-                <td>{order.user.name}</td>
+                <td>{order.user ? order.user.name : 'N/A'}</td>
                 <td>{new Date(order.created_at).toLocaleDateString('id-ID')}</td>
                 <td>Rp {new Intl.NumberFormat('id-ID').format(order.total_harga)}</td>
                 <td>
@@ -92,10 +114,7 @@ const AdminPesananPage = () => {
                   </span>
                 </td>
                 <td className="action-buttons">
-                  {/* 2. Tambahkan ikon ke tombol detail */}
-                  <button onClick={() => handleViewDetail(order.id)} className="btn-detail">
-                    <FaEye />
-                  </button>
+                  <button onClick={() => handleViewDetail(order.id)} className="btn-detail"><FaEye /></button>
                 </td>
               </tr>
             ))}
@@ -103,13 +122,34 @@ const AdminPesananPage = () => {
         </table>
       </div>
 
+      {ordersData && ordersData.data.length > 0 && (
+        <div className="pagination-controls">
+          <button 
+            onClick={() => handlePageChange(ordersData.current_page - 1)} 
+            disabled={ordersData.current_page === 1}
+          >
+            Sebelumnya
+          </button>
+          <span>
+            Halaman {ordersData.current_page} dari {ordersData.last_page}
+          </span>
+          <button 
+            onClick={() => handlePageChange(ordersData.current_page + 1)} 
+            disabled={ordersData.current_page === ordersData.last_page}
+          >
+            Berikutnya
+          </button>
+        </div>
+      )}
+
+      {/* --- MENGISI KONTEN MODAL --- */}
       <Modal 
         show={isDetailModalOpen} 
         onClose={handleCloseDetailModal} 
         title={`Detail Pesanan #${selectedOrder?.id}`}
       >
         {selectedOrder && (
-          <div className="order-detail-content">
+          <div>
             <div className="order-detail-grid">
                 <div className="detail-section">
                     <span className="detail-label">Info Pelanggan</span>
@@ -141,6 +181,22 @@ const AdminPesananPage = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="status-update-section">
+              <h4>Ubah Status Pesanan</h4>
+              <div className="status-update-form">
+                <select value={newStatus} onChange={(e) => setNewStatus(e.target.value)}>
+                    <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+                    <option value="Diproses">Diproses</option>
+                    <option value="Dikirim">Dikirim</option>
+                    <option value="Selesai">Selesai</option>
+                    <option value="Dibatalkan">Dibatalkan</option>
+                </select>
+                <button onClick={handleUpdateStatus} className="btn-primary">
+                    Update Status
+                </button>
+              </div>
             </div>
 
             <div className="modal-footer-actions">

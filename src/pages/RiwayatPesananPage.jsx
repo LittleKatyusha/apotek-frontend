@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient from '../api/axios.js';
+import { Link } from 'react-router-dom';
 
 const RiwayatPesananPage = () => {
   const [orders, setOrders] = useState([]);
@@ -8,6 +9,7 @@ const RiwayatPesananPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        // Memanggil endpoint yang benar
         const response = await apiClient.get('/orders');
         setOrders(response.data);
       } catch (error) {
@@ -19,46 +21,6 @@ const RiwayatPesananPage = () => {
 
     fetchOrders();
   }, []);
-
-  const handleCancelOrder = async (orderId) => {
-    // Tampilkan konfirmasi sebelum membatalkan
-    if (!window.confirm("Apakah Anda yakin ingin membatalkan pesanan ini?")) {
-        return;
-    }
-
-    try {
-        const response = await apiClient.post(`/orders/${orderId}/cancel`);
-        alert(response.data.message);
-
-        // Perbarui status pesanan di state agar tampilan langsung berubah tanpa reload
-        setOrders(currentOrders =>
-            currentOrders.map(order =>
-                order.id === orderId ? { ...order, status: 'Dibatalkan' } : order
-            )
-        );
-
-    } catch (error) {
-        console.error("Gagal membatalkan pesanan:", error);
-        alert(error.response?.data?.message || "Gagal membatalkan pesanan.");
-    }
-  };
-
-  const getStatusClass = (status) => {
-    switch (status.toLowerCase()) {
-      case 'menunggu pembayaran':
-        return 'status-menunggu';
-      case 'diproses':
-        return 'status-diproses';
-      case 'dikirim':
-        return 'status-dikirim';
-      case 'selesai':
-        return 'status-selesai';
-      case 'dibatalkan':
-        return 'status-dibatalkan';
-      default:
-        return '';
-    }
-  };
 
   if (loading) {
     return <div className="container"><h2>Memuat riwayat pesanan...</h2></div>;
@@ -76,36 +38,27 @@ const RiwayatPesananPage = () => {
               <div className="order-header">
                 <div>
                   <strong>Pesanan #{order.id}</strong>
-                  <p>Tanggal: {new Date(order.created_at).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                  <p>Tanggal: {new Date(order.created_at).toLocaleDateString('id-ID')}</p>
                 </div>
-                <div className={`order-status ${getStatusClass(order.status)}`}>
+                <div className={`order-status status-${order.status.toLowerCase().replace(/\s+/g, '-')}`}>
                   <span>{order.status}</span>
                 </div>
               </div>
               <div className="order-body">
-                <strong>Detail Produk:</strong>
                 {order.items.map(item => (
                   <div key={item.id} className="order-item-detail">
-                    <img src={item.obat.gambar_url} alt={item.obat.nama_obat} />
+                    <img src={item.obat.gambar_url ? `http://127.0.0.1:8000${item.obat.gambar_url}` : 'https://placehold.co/60'} alt={item.obat.nama_obat} />
                     <div>
                       <strong>{item.obat.nama_obat}</strong>
                       <p>{item.kuantitas} x Rp {new Intl.NumberFormat('id-ID').format(item.harga)}</p>
                     </div>
                   </div>
                 ))}
-                 <hr/>
-                <strong>Alamat Pengiriman:</strong>
-                <p>{order.nama_penerima}<br/>{order.telepon}<br/>{order.alamat_pengiriman}</p>
               </div>
               <div className="order-footer">
                 <strong>Total: Rp {new Intl.NumberFormat('id-ID').format(order.total_harga)}</strong>
-                
                 {order.status === 'Menunggu Pembayaran' && (
-                    <button 
-                        className="btn-batal" 
-                        onClick={() => handleCancelOrder(order.id)}>
-                        Batalkan Pesanan
-                    </button>
+                  <button className="btn-batal">Batalkan Pesanan</button>
                 )}
               </div>
             </div>
@@ -117,3 +70,4 @@ const RiwayatPesananPage = () => {
 };
 
 export default RiwayatPesananPage;
+
