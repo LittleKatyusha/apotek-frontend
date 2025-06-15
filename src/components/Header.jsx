@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
@@ -45,6 +44,14 @@ const Header = () => {
                   <span>Halo, {user.name.split(' ')[0]}</span>
                 </Link>
                 <Link to="/riwayat-pesanan" className="nav-history">Riwayat</Link>
+
+                {/* === TAMBAHKAN KODE KONDISIONAL INI === */}
+                {user.role === 'admin' && (
+                  <Link to="/admin/dashboard" className="nav-admin">
+                    Panel Admin
+                  </Link>
+                )}
+                
                 <button onClick={handleLogout} className="btn-logout">Logout</button>
               </div>
             ) : (

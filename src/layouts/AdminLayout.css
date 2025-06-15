@@ -1,0 +1,120 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  width: 250px; /* Lebar saat terbuka */
+  background-color: #212529;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease, padding 0.3s ease; /* Tambahkan transisi untuk padding */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-sidebar h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #fff;
+  white-space: nowrap; /* Mencegah teks turun baris saat animasi */
+  overflow: hidden;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #adb5bd;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.3s ease; /* Tambahkan transisi untuk transform */
+}
+.toggle-btn:hover {
+  color: #fff;
+}
+
+.admin-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-sidebar nav a {
+  color: #adb5bd;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: 500;
+  white-space: nowrap; /* Mencegah teks turun baris saat animasi */
+  overflow: hidden;
+}
+.admin-sidebar nav a svg {
+    flex-shrink: 0; /* Mencegah ikon ikut mengecil */
+    font-size: 1.2rem;
+}
+
+.admin-sidebar nav a:hover {
+  background-color: #495057;
+  color: #fff;
+}
+
+.admin-sidebar nav a.active {
+  background-color: var(--primary-blue);
+  color: #fff;
+}
+
+.admin-content {
+  margin-left: 250px; /* Margin saat sidebar terbuka */
+  padding: 30px;
+  width: calc(100% - 250px);
+  background-color: #f8f9fa;
+  transition: margin-left 0.3s ease, width 0.3s ease; /* Animasi transisi */
+}
+
+/* === STYLING SAAT SIDEBAR TERTUTUP (COLLAPSED) === */
+
+.admin-layout.collapsed .admin-sidebar {
+  width: 75px; /* Lebar baru yang lebih ringkas */
+  padding: 20px 0; /* Hapus padding horizontal */
+  align-items: center; /* Tengahkan semua item */
+}
+
+.admin-layout.collapsed .admin-content {
+  margin-left: 75px; /* Sesuaikan dengan lebar baru */
+  width: calc(100% - 75px);
+}
+
+.admin-layout.collapsed .sidebar-header {
+    justify-content: center; /* Tengahkan tombol toggle */
+}
+
+.admin-layout.collapsed .admin-sidebar h3,
+.admin-layout.collapsed .admin-sidebar nav a span {
+  opacity: 0;
+  width: 0;
+  visibility: hidden;
+  display: none; /* Sembunyikan sepenuhnya */
+}
+
+.admin-layout.collapsed .admin-sidebar nav a {
+    justify-content: center; /* Tengahkan ikon di dalam link */
+    padding: 15px 0;
+}
+
+.admin-layout.collapsed .toggle-btn {
+    transform: rotate(180deg); /* Putar ikon tombol */
+    margin: 0 auto;
+}
