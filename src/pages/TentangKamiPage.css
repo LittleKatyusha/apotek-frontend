@@ -1,0 +1,99 @@
+.about-hero {
+  /* Menggunakan gambar background baru yang lebih relevan dengan farmasi/obat-obatan */
+  background: linear-gradient(rgba(10, 40, 80, 0.7), rgba(10, 40, 80, 0.7)), url('https://images.unsplash.com/photo-1628771065518-0d82f1938462?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 10px auto 0;
+}
+
+.about-content {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.content-section {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.content-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.content-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  border-left: 5px solid var(--primary-blue);
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+.content-section p {
+  line-height: 1.8;
+  color: #555;
+}
+
+.values-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.values-section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.value-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border-top: 5px solid var(--primary-blue);
+}
+
+.value-card svg {
+  font-size: 3rem;
+  color: var(--primary-blue);
+  margin-bottom: 15px;
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.value-card p {
+  line-height: 1.7;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+    .content-section {
+        grid-template-columns: 1fr;
+    }
+}

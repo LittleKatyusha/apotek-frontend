@@ -24,6 +24,7 @@ import RiwayatPesananPage from './pages/RiwayatPesananPage.jsx';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage.jsx';
 import AdminProdukPage from './pages/admin/AdminProdukPage.jsx';
 import AdminPesananPage from './pages/admin/AdminPesananPage.jsx';
+import PembayaranPage from './pages/PembayaranPage.jsx';
 
 import './App.css';
 
@@ -59,6 +60,8 @@ function App() {
           <Route path="checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
           <Route path="profil" element={<ProtectedRoute><ProfilPage /></ProtectedRoute>} />
           <Route path="riwayat-pesanan" element={<ProtectedRoute><RiwayatPesananPage /></ProtectedRoute>} />
+          <Route path="/pembayaran/:orderId" element={<ProtectedRoute><PembayaranPage /></ProtectedRoute>} />
+
         </Route>
       </Routes>
     </Router>

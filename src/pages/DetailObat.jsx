@@ -47,7 +47,10 @@ function DetailObat() {
   return (
     <div className="container">
       <div className="detail-content">
-        <img src={obat.gambar_url} alt={obat.nama_obat} />
+        <img 
+          src={obat.gambar_url ? `http://127.0.0.1:8000${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
+          alt={obat.nama_obat} 
+        />
         <div className="detail-info">
           <h1>{obat.nama_obat}</h1>
           <p className="obat-kategori">{obat.kategori}</p>

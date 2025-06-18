@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* Pastikan di atas elemen lain */
+  z-index: 1050;
   animation: fade-in 0.3s ease;
 }
 
@@ -19,8 +19,12 @@
   width: 100%;
   max-width: 600px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-  /* Animasi muncul */
   animation: slide-down 0.3s ease-out;
+  
+  /* --- PERBAIKAN DI SINI --- */
+  max-height: 90vh; /* 1. Batasi tinggi modal maksimal 90% dari tinggi layar */
+  display: flex;
+  flex-direction: column; /* Tata letak isinya secara vertikal */
 }
 
 .modal-header {
@@ -30,11 +34,17 @@
   border-bottom: 1px solid #eee;
   padding-bottom: 15px;
   margin-bottom: 20px;
+  flex-shrink: 0; /* Pastikan header tidak ikut mengecil */
 }
 
 .modal-header h2 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.modal-body {
+  overflow-y: auto; /* 2. Tambahkan scroll vertikal jika kontennya (form) lebih panjang */
+  padding-right: 15px; /* Beri sedikit ruang untuk scrollbar agar tidak menempel */
 }
 
 .close-button {

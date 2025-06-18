@@ -9,7 +9,6 @@ const RiwayatPesananPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        // Memanggil endpoint yang benar
         const response = await apiClient.get('/orders');
         setOrders(response.data);
       } catch (error) {
@@ -21,6 +20,24 @@ const RiwayatPesananPage = () => {
 
     fetchOrders();
   }, []);
+
+  const handleCancel = async (orderId) => {
+    const konfirmasi = window.confirm('Yakin ingin membatalkan pesanan ini?');
+    if (!konfirmasi) return;
+
+    try {
+      await apiClient.post(`/orders/${orderId}/cancel`);
+      // Update status di frontend agar langsung berubah jadi "Dibatalkan"
+      setOrders(prevOrders =>
+        prevOrders.map(order =>
+          order.id === orderId ? { ...order, status: 'Dibatalkan' } : order
+        )
+      );
+    } catch (error) {
+      console.error("Gagal membatalkan pesanan:", error);
+      alert("Terjadi kesalahan saat membatalkan pesanan.");
+    }
+  };
 
   if (loading) {
     return <div className="container"><h2>Memuat riwayat pesanan...</h2></div>;
@@ -47,7 +64,10 @@ const RiwayatPesananPage = () => {
               <div className="order-body">
                 {order.items.map(item => (
                   <div key={item.id} className="order-item-detail">
-                    <img src={item.obat.gambar_url ? `http://127.0.0.1:8000${item.obat.gambar_url}` : 'https://placehold.co/60'} alt={item.obat.nama_obat} />
+                    <img
+                      src={item.obat.gambar_url ? `http://127.0.0.1:8000${item.obat.gambar_url}` : 'https://placehold.co/60'}
+                      alt={item.obat.nama_obat}
+                    />
                     <div>
                       <strong>{item.obat.nama_obat}</strong>
                       <p>{item.kuantitas} x Rp {new Intl.NumberFormat('id-ID').format(item.harga)}</p>
@@ -58,7 +78,9 @@ const RiwayatPesananPage = () => {
               <div className="order-footer">
                 <strong>Total: Rp {new Intl.NumberFormat('id-ID').format(order.total_harga)}</strong>
                 {order.status === 'Menunggu Pembayaran' && (
-                  <button className="btn-batal">Batalkan Pesanan</button>
+                  <button className="btn-batal" onClick={() => handleCancel(order.id)}>
+                    Batalkan Pesanan
+                  </button>
                 )}
               </div>
             </div>
@@ -70,4 +92,3 @@ const RiwayatPesananPage = () => {
 };
 
 export default RiwayatPesananPage;
-

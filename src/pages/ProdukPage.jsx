@@ -1,5 +1,3 @@
-// src/pages/ProdukPage.jsx
-
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import apiClient from '../api/axios.js';
@@ -50,7 +48,12 @@ const ProdukPage = () => {
         {obats.map(obat => (
           <div key={obat.id} className="obat-card">
             <Link to={`/obat/${obat.id}`}>
-              <img src={obat.gambar_url} alt={obat.nama_obat} />
+              {/* === PERBAIKAN DI SINI === */}
+              {/* Tambahkan alamat lengkap backend ke URL gambar */}
+              <img 
+                src={obat.gambar_url ? `http://127.0.0.1:8000${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
+                alt={obat.nama_obat}
+              />
               <div className="obat-info">
                 <span className="obat-kategori">{obat.kategori}</span>
                 <h3>{obat.nama_obat}</h3>
