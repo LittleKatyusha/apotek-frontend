@@ -65,7 +65,7 @@ const RiwayatPesananPage = () => {
                 {order.items.map(item => (
                   <div key={item.id} className="order-item-detail">
                     <img
-                      src={item.obat.gambar_url ? `http://127.0.0.1:8000${item.obat.gambar_url}` : 'https://placehold.co/60'}
+                      src={item.obat.gambar_url ? `https://romanesco.it.com/apotek-backend${item.obat.gambar_url}` : 'https://placehold.co/60'}
                       alt={item.obat.nama_obat}
                     />
                     <div>

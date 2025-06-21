@@ -17,7 +17,7 @@ function DetailObat() {
     const fetchObatDetail = async () => {
       try {
         // Ambil data dari API menggunakan ID dari URL
-        const response = await axios.get(`http://127.0.0.1:8000/api/obat/${id}`);
+        const response = await axios.get(`https://romanesco.it.com/apotek-backend/api/obat/${id}`);
         setObat(response.data);
       } catch (error) {
         console.error("Gagal mengambil detail obat:", error);
@@ -48,7 +48,7 @@ function DetailObat() {
     <div className="container">
       <div className="detail-content">
         <img 
-          src={obat.gambar_url ? `http://127.0.0.1:8000${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
+          src={obat.gambar_url ? `https://romanesco.it.com/apotek-backend${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
           alt={obat.nama_obat} 
         />
         <div className="detail-info">

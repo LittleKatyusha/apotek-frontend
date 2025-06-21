@@ -15,7 +15,7 @@ function LoginPage() {
 
     try {
       // 1. Kirim request login ke backend
-      const response = await axios.post('http://127.0.0.1:8000/api/login', loginData);
+      const response = await axios.post('https://romanesco.it.com/apotek-backend/api/login', loginData);
 
       // 2. Jika berhasil, SIMPAN TOKEN di Local Storage browser
       // Local Storage adalah penyimpanan kecil di browser yang tidak akan hilang saat di-refresh

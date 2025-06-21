@@ -173,7 +173,7 @@ const AdminPesananPage = () => {
               <ul>
                 {selectedOrder.items.map(item => (
                   <li key={item.id}>
-                    <img src={item.obat.gambar_url ? `http://127.0.0.1:8000${item.obat.gambar_url}` : 'https://placehold.co/50'} alt={item.obat.nama_obat} />
+                    <img src={item.obat.gambar_url ? `https://romanesco.it.com/apotek-backend${item.obat.gambar_url}` : 'https://placehold.co/50'} alt={item.obat.nama_obat} />
                     <div className="item-info">
                       <span>{item.obat.nama_obat}</span>
                       <small>{item.kuantitas} x Rp {new Intl.NumberFormat('id-ID').format(item.harga)}</small>

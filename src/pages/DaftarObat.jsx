@@ -98,7 +98,7 @@ function DaftarObat() {
                   <div key={obat.id} className="obat-card">
                     <Link to={`/obat/${obat.id}`}>
                       <img 
-                        src={obat.gambar_url ? `http://127.0.0.1:8000${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
+                        src={obat.gambar_url ? `https://romanesco.it.com/apotek-backend${obat.gambar_url}` : 'https://placehold.co/600x400/EEE/31343C?text=ApotekSehat'} 
                         alt={obat.nama_obat} 
                       />
                       <div className="obat-info">

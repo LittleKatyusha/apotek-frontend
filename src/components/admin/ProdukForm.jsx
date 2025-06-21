@@ -22,7 +22,7 @@ const ProdukForm = ({ produkToEdit, onSave, onCancel }) => {
           stok: produkToEdit.stok,
       });
       // Tampilkan gambar yang ada dari server
-      setPreview(produkToEdit.gambar_url ? `http://127.0.0.1:8000${produkToEdit.gambar_url}` : null);
+      setPreview(produkToEdit.gambar_url ? `https://romanesco.it.com/apotek-backend${produkToEdit.gambar_url}` : null);
     } else {
       // Reset form jika dalam mode tambah
       setFormData({

@@ -23,7 +23,7 @@ function RegisterPage() {
 
     try {
       // 4. Kirim request POST ke backend Laravel
-      await axios.post('http://127.0.0.1:8000/api/register', registerData);
+      await axios.post('https://romanesco.it.com/apotek-backend/api/register', registerData);
 
       // 5. Jika berhasil, beri notifikasi dan arahkan ke halaman login
       alert('Registrasi berhasil! Silakan login dengan akun Anda.');

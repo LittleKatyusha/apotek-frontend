@@ -18,7 +18,7 @@ const echo = new Echo({
         return {
             authorize: (socketId, callback) => {
                 // 2. Kita gunakan axios langsung ke URL lengkap, BUKAN apiClient
-                axios.post('http://127.0.0.1:8000/broadcasting/auth', {
+                axios.post('https://romanesco.it.com/apotek-backend/broadcasting/auth', {
                     socket_id: socketId,
                     channel_name: channel.name,
                 }, {

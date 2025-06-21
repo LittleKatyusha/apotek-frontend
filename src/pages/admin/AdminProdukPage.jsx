@@ -134,7 +134,7 @@ const AdminProdukPage = () => {
                 <td>{obat.id}</td>
                 <td>
                   <img 
-                    src={obat.gambar_url ? `http://127.0.0.1:8000${obat.gambar_url}` : 'https://placehold.co/60'} 
+                    src={obat.gambar_url ? `https://romanesco.it.com/apotek-backend${obat.gambar_url}` : 'https://placehold.co/60'} 
                     alt={obat.nama_obat} 
                     className="table-img" 
                   />

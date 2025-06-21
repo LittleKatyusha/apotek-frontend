@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api', // Alamat dasar API kita
+  baseURL: 'https://romanesco.it.com/apotek-backend/api', // Alamat dasar API kita
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
